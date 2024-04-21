@@ -1,0 +1,45 @@
+{
+	"name": "lab-ecovoyage-org",
+	"containerEnv": {
+		"TZ": "Europe/Paris",
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	},
+	# "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+	"workspaceFolder": "/workspace",
+	"shutdownAction": "stopCompose",
+	"updateRemoteUserUID": true,
+
+	"dockerComposeFile": "../docker-compose.yml",
+  	"service": "ansible",
+
+	"extensions": [	
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"ms-azuretools.vscode-docker",
+				"ms-vscode.makefile-tools",
+				"ms-vscode-remote.remote-containers",
+				"ms-vscode-remote.vscode-remote-extensionpack",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				],
+	"remoteUser": "jovian",
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash",
+        "terminal.integrated.shellArgs.linux": ["-c"],
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+            "bash": {
+                "path": "/bin/bash"
+            }
+        },
+		"files.autoSave": "afterDelay",
+		"python.pythonPath": "/opt/conda/bin/python",
+		"python.defaultInterpreterPath": "/opt/conda/bin/python",
+		"jupyter.interactiveWindow.textEditor.magicCommandsAsComments": true,
+		"python.terminal.activateEnvironment": false	
+	  },
+	"mounts": [
+		"source=${localWorkspaceFolder}/.devcontainer/.cache,target=/home/jovian/.cache,type=bind,consistency=cached"
+    ]
+}

@@ -1,0 +1,11 @@
+---
+# tasks file for demo
+- name: Ensure the /tmp/demo directory exists
+  file:
+    path: /tmp/demo
+    state: directory
+
+- name: Create a file in /tmp/demo
+  copy:
+    content: "Hello, Ansible running in Docker!"
+    dest: /tmp/demo/hello.txt

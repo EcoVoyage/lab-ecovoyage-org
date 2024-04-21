@@ -1,0 +1,5 @@
+name: ansible
+channels:
+  - conda-forge
+dependencies:
+  - ansible

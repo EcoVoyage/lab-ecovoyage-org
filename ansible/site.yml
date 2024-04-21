@@ -1,0 +1,7 @@
+---
+- name: Run demo role on localhost
+  hosts: local
+  gather_facts: no
+
+  roles:
+    - demo
