@@ -1,7 +1,7 @@
 ---
-- name: Run demo role on localhost
+- name: Deploy Lokal
   hosts: local
-  gather_facts: no
+  gather_facts: yes
 
   roles:
-    - demo
+    - docker

@@ -1,0 +1,64 @@
+- name: Install required packages
+  become: yes
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name: 
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gpg
+      - software-properties-common
+    state: latest
+
+- name: Add Docker GPG key
+  become: yes
+  apt_key:
+    url: "{{ docker_apt_gpg_key }}"
+    state: present
+
+- name: Add Docker repository
+  become: yes
+  apt_repository:
+    repo: "{{ docker_apt_repository }}"
+    state: present
+    update_cache: true
+
+- name: Install Docker
+  become: yes
+  apt:
+    name: 
+      - docker-ce
+      - docker-ce-cli
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: latest
+
+- name: Add Ansible user to docker group
+  become: yes
+  user:
+    name: "{{ansible_user}}"
+    groups: docker
+    append: yes
+
+- name: Check if systemd is active
+  ansible.builtin.command: systemctl
+  register: systemd_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Set fact based on systemd presence
+  ansible.builtin.set_fact:
+    has_systemd: "{{ not systemd_check.failed }}"
+
+- name: Enable docker
+  become: yes
+  service:
+    name: docker
+    state: started
+  when: has_systemd
+
+
+
+- name: Reset connection
+  meta: reset_connection 

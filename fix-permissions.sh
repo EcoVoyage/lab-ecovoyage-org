@@ -10,6 +10,7 @@ if sudo -l &>/dev/null; then
 
     sudo chown -R $USER_UID:$USER_GID /data
     sudo chown -R $USER_UID:$USER_GID $MAMBA_ROOT_PREFIX
+    sudo chown $USER_UID:$USER_GID /var/run/docker.sock
 
 else
     echo "User does not have sudo privileges. Exiting script."
